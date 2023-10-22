@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加減乘除計算機</title>
+    <style>
+        body{
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 微軟正黑體;
+        }
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .box-clac {
+            width: 600px;
+            height: 80px;
+            background-color: #444;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 30px;
+            border-radius: 10px 10px 0 0;
+        }
+        .marks {
+            display: flex;
+            width: 300px;
+            justify-content: space-between;
+        }
+        .clac {
+            background-color: #222;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            font-size: 32px;
+            cursor: pointer;
+            color:#fff;
+            transition: .5s;
+        }
+        .clac:hover{
+            background-color: #fff;
+            color:#222;
+        }
+        .num {
+            width: 120px;
+            height: 50px;
+            font-size: 24px;
+            text-align: center;
+        }
+        .box-result{
+            width: 600px;
+            background-color: #aaa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 30px;
+            border-radius: 0 0 10px 10px;
+        }
+        .result {
+            min-width: 250px;
+            height: 80px;
+            line-height: 80px;
+            font-size: 30px;
+            text-align: center;
+            background-color: #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box-clac">
+            <input type="number" class="num1 num" placeholder="輸入數字">
+            <div class="marks">
+                <div class="plus clac">+</div>
+                <div class="minus clac">-</div>
+                <div class="times clac">×</div>
+                <div class="divided clac">÷</div>
+            </div>
+            <input type="number" class="num2 num" placeholder="輸入數字">
+        </div>
+        <div class="box-result">
+            <div class="result"></div>
+        </div>
+    </div>
+    
+    <script>
+        //宣告數字//
+        var num1 = document.querySelector('.box-clac .num1');
+        var num2 = document.querySelector('.box-clac .num2');
+        //宣告按鈕//
+        var plusBtn = document.querySelector('.box-clac .plus');
+        var minusBtn = document.querySelector('.box-clac .minus');
+        var timesBtn = document.querySelector('.box-clac .times');
+        var dividedBtn = document.querySelector('.box-clac .divided');
+        //宣告結果//
+        var result = document.querySelector('.box-result .result');
+
+
+        //設按下時的動作//
+        plusBtn.addEventListener('click', function(){
+            if (!notNumber(num1.value, num2.value)) {
+                result.innerHTML = add(num1.value, num2.value);
+            } else {
+                alert('請正確輸入數字');
+            }
+        });
+        minusBtn.addEventListener('click', function(){
+            if (!notNumber(num1.value, num2.value)) {
+                result.innerHTML = minus(num1.value, num2.value);
+            } else {
+                alert('請正確輸入數字');
+            }
+        });
+        timesBtn.addEventListener('click', function(){
+            if (!notNumber(num1.value, num2.value)) {
+                result.innerHTML = times(num1.value, num2.value);
+            } else {
+                alert('請正確輸入數字');
+            }
+        });
+        dividedBtn.addEventListener('click', function(){
+            if (!notNumber(num1.value, num2.value)) {
+                result.innerHTML = divided(num1.value, num2.value);
+            } else {
+                alert('請正確輸入數字');
+            }
+        });
+
+        //邏輯運算式
+        //  (條件一) || (條件二) ：or =>只要條件一 "或者" 條件二為true 則整個判斷為true
+        //  (條件一) && (條件二) ：and =>只要條件一 且 條件二為true 則整個判斷才為true
+
+        //判斷是否為數字
+        function notNumber(a, b){
+            if (isNaN(parseFloat(a)) || isNaN(parseFloat(b))) {
+                return true;
+            } else {
+                return false;
+            };
+        };
+
+        //製作運算的function
+        function add(a, b) {
+            return parseFloat(a) + parseFloat(b);
+        };
+        function minus(a, b) {
+            return parseFloat(a) - parseFloat(b);
+        };
+        function times(a, b) {
+            return parseFloat(a) * parseFloat(b);
+        };
+        function divided(a, b) {
+            if( b == 0){
+                alert('數字的分母不可為0');
+                return;
+            }else{
+                return (parseFloat(a) / parseFloat(b)).toFixed(2);
+            };
+        };
+    </script>
+</body>
+</html>
